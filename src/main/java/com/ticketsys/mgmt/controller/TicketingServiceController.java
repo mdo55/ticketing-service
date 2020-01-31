@@ -5,6 +5,7 @@ import com.ticketsys.mgmt.dto.response.TicketInfoResponse;
 import com.ticketsys.mgmt.service.TicketService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import javax.validation.constraints.NotNull;
 @RestController
 @RequestMapping("ticketsysmgmt/")
 @Slf4j
+@CrossOrigin(origins="http://localhost:4200", allowedHeaders="*")
 public class TicketingServiceController {
 
     @Autowired
@@ -26,8 +28,13 @@ public class TicketingServiceController {
 //    public ResponseEntity<TicketInfoResponse> saveTicket(@RequestBody @Valid TicketInfoRequest requestDto,
 //           @RequestParam(value = "clipFile") MultipartFile file) {
     public ResponseEntity<TicketInfoResponse> saveTicket(@RequestBody @Valid TicketInfoRequest requestDto) {
-        log.info("method call...."+requestDto);
+//        log.info("method call...."+requestDto);
         TicketInfoResponse responseDto = ticketService.save(requestDto);
         return new ResponseEntity(responseDto, HttpStatus.OK);
+    }
+
+    @GetMapping("list")
+    public Page<TicketInfoResponse> loadAll() {
+        return ticketService.loadPage(0, 14);
     }
 }

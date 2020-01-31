@@ -5,20 +5,27 @@ import com.ticketsys.mgmt.domain.TicketInfo;
 import com.ticketsys.mgmt.dto.request.TicketInfoRequest;
 import com.ticketsys.mgmt.dto.response.TicketInfoResponse;
 
-import java.util.Date;
+import java.util.*;
 
 /**
  * @author mdoss
  */
 public class MapperUtil {
+    private static MapperUtil _INSTANCE = new MapperUtil();
     private MapperUtil() {}
-
+    public static MapperUtil getInstance() {
+        if(Objects.isNull(_INSTANCE)) {
+            _INSTANCE = new MapperUtil();
+            return _INSTANCE;
+        }
+        return _INSTANCE;
+    }
     /**
      * map request to domain (ticketInfo) object.
      * @param requestDto
      * @return ticketInfo
      */
-    public static TicketInfo mapRequestToTicketInfoDomain(TicketInfoRequest requestDto) {
+    public TicketInfo mapRequestToTicketInfoDomain(TicketInfoRequest requestDto) {
         TicketInfo ticketInfo = new TicketInfo();
         ticketInfo.setUserId(requestDto.getUserId());
         ticketInfo.setTicket(requestDto.getTicket());
@@ -39,7 +46,7 @@ public class MapperUtil {
      * @param entity
      * @return ticketInfoResponse.
      */
-    public static TicketInfoResponse mapTicketInfoDomainToResponse(TicketInfo entity) {
+    public TicketInfoResponse mapTicketInfoDomainToResponse(TicketInfo entity) {
         TicketInfoResponse responseDto = new TicketInfoResponse();
         responseDto.setTicketId(entity.getTicketId());
         responseDto.setUserId(entity.getUserId());
@@ -56,4 +63,21 @@ public class MapperUtil {
         responseDto.setFileBase64(entity.getFileBase64());
         return responseDto;
     }
+
+    /**
+     *
+     * @param ticketInfoList
+     * @return
+     */
+    public List<TicketInfoResponse> mapDomainToResponseList(List<TicketInfo> ticketInfoList) {
+        if(Objects.isNull(ticketInfoList) || ticketInfoList.isEmpty()) {
+            return Collections.emptyList();
+        }
+        List<TicketInfoResponse> responseList = new ArrayList<>();
+        for (TicketInfo entity : ticketInfoList) {
+            responseList.add(mapTicketInfoDomainToResponse(entity));
+        }
+        return responseList;
+    }
+
 }
