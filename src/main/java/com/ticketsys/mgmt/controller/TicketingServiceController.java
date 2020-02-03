@@ -33,8 +33,8 @@ public class TicketingServiceController {
         return new ResponseEntity(responseDto, HttpStatus.OK);
     }
 
-    @GetMapping("list")
+    @GetMapping("loadPage")
     public Page<TicketInfoResponse> loadAll() {
-        return ticketService.loadPage(0, 14);
+        return ticketService.loadPage(0, 6);
     }
 }

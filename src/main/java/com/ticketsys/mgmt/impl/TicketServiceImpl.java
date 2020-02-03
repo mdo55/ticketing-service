@@ -57,21 +57,22 @@ public class TicketServiceImpl implements TicketService {
     }
 
     /**
-     *
+     * Pagination data loaded.
      * @param page
      * @param size
      * @return page<TicketInfoResponse> object.
      */
     @Override
     public Page<TicketInfoResponse> loadPage(int page, int size) {
-        Page<TicketInfo> ticketPage = ticketRepository.findAll(PageRequest.of(page, size, Sort.by("ticketId").descending()));
-        if(Objects.isNull(ticketPage) || ticketPage.isEmpty()) {
+//        Page<TicketInfo> ticketPage = ticketRepository.findAll(PageRequest.of(page, size, Sort.by("ticketId").descending()));
+        List<TicketInfo> infoList = ticketRepository.findAll(Sort.by("ticketId").descending());
+        if(Objects.isNull(infoList) || infoList.isEmpty()) {
             return Page.empty();
         }
-        List<TicketInfoResponse> responseList = ticketPage.get()
+        List<TicketInfoResponse> responseList = infoList.stream()
                 .map(ticketInfo -> MapperUtil.getInstance().mapTicketInfoDomainToResponse(ticketInfo))
                 .collect(Collectors.toList());
-        Page<TicketInfoResponse> pages = new PageImpl<>(responseList, ticketPage.getPageable(), responseList.size());
+        Page<TicketInfoResponse> pages = new PageImpl<>(responseList, PageRequest.of(0,6), 15);
         return pages;
     }
 }
