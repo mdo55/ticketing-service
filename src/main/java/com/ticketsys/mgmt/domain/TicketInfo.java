@@ -1,5 +1,6 @@
 package com.ticketsys.mgmt.domain;
 
+import com.ticketsys.mgmt.constants.Priority;
 import com.ticketsys.mgmt.constants.Status;
 import org.hibernate.annotations.Type;
 
@@ -49,6 +50,9 @@ public class TicketInfo implements Serializable {
     private String fileBase64;
     @Column(name = "file_extension", length = 5)
     private String fileExtension;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "priority", length = 10)
+    private Priority priority;
 
     public TicketInfo() {
     }
@@ -163,5 +167,13 @@ public class TicketInfo implements Serializable {
 
     public void setFileExtension(String fileExtension) {
         this.fileExtension = fileExtension;
+    }
+
+    public Priority getPriority() {
+        return priority;
+    }
+
+    public void setPriority(Priority priority) {
+        this.priority = priority;
     }
 }

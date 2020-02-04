@@ -1,5 +1,6 @@
 package com.ticketsys.mgmt.util;
 
+import com.ticketsys.mgmt.constants.Priority;
 import com.ticketsys.mgmt.constants.Status;
 import com.ticketsys.mgmt.domain.TicketInfo;
 import com.ticketsys.mgmt.dto.request.TicketInfoRequest;
@@ -33,12 +34,14 @@ public class MapperUtil {
         ticketInfo.setDescription(requestDto.getDescription());
         ticketInfo.setAttached(requestDto.isAttached());
         ticketInfo.setVersion(requestDto.getVersion());
-        ticketInfo.setStatus(Status.valueOf(requestDto.getStatus()));
+        ticketInfo.setStatus(requestDto.getStatus());
         ticketInfo.setCreatedDate(new Date(System.currentTimeMillis()));
         ticketInfo.setCreatedBy("mdoss@altimetrik.com");
         ticketInfo.setUpdatedDate(new Date(System.currentTimeMillis()));
         ticketInfo.setUpdatedBy("UpdatedBy");
         ticketInfo.setFileBase64(requestDto.getFileBase64());
+        Priority priority = requestDto.getPriority() == null ? Priority.NORMAL : requestDto.getPriority();
+        ticketInfo.setPriority(priority);
         return ticketInfo;
     }
     /**
@@ -55,12 +58,13 @@ public class MapperUtil {
         responseDto.setDescription(entity.getDescription());
         responseDto.setAttached(entity.isAttached());
         responseDto.setVersion(entity.getVersion());
-        responseDto.setStatus(entity.getStatus().getName());
+        responseDto.setStatus(entity.getStatus());
         responseDto.setCreatedDate(entity.getCreatedDate());
         responseDto.setCreatedBy(entity.getCreatedBy());
         responseDto.setUpdatedDate(entity.getUpdatedDate());
         responseDto.setUpdatedBy(entity.getUpdatedBy());
         responseDto.setFileBase64(entity.getFileBase64());
+        responseDto.setPriority(entity.getPriority());
         return responseDto;
     }
 

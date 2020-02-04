@@ -16,6 +16,7 @@ import javax.validation.constraints.NotNull;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -52,8 +53,11 @@ public class TicketServiceImpl implements TicketService {
      */
     @Override
     public TicketInfoResponse findById(Integer id) {
-        TicketInfo entity = ticketRepository.findById(id).get();
-        return MapperUtil.getInstance().mapTicketInfoDomainToResponse(entity);
+        Optional<TicketInfo> persistObj = ticketRepository.findById(id);
+        if (Objects.nonNull(persistObj)) {
+            return MapperUtil.getInstance().mapTicketInfoDomainToResponse(persistObj.get());
+        }
+        return null;
     }
 
     /**

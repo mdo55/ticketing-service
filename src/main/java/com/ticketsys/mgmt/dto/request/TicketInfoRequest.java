@@ -1,5 +1,7 @@
 package com.ticketsys.mgmt.dto.request;
 
+import com.ticketsys.mgmt.constants.Priority;
+import com.ticketsys.mgmt.constants.Status;
 import lombok.Data;
 
 import java.util.Date;
@@ -16,11 +18,12 @@ public class TicketInfoRequest {
     private String description;
     private boolean attached;
     private String version;
-    private String status;
+    private Status status;
     private Date createdDate;
     private String createdBy;
     private Date updatedDate;
     private String updatedBy;
     private String fileBase64;
     private String fileExtension;
+    private Priority priority;
 }
