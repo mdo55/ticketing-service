@@ -40,6 +40,7 @@ public class MapperUtil {
         ticketInfo.setUpdatedDate(new Date(System.currentTimeMillis()));
         ticketInfo.setUpdatedBy("UpdatedBy");
         ticketInfo.setFileBase64(requestDto.getFileBase64());
+        ticketInfo.setFileExtension(requestDto.getFileExtension());
         Priority priority = requestDto.getPriority() == null ? Priority.NORMAL : requestDto.getPriority();
         ticketInfo.setPriority(priority);
         return ticketInfo;
@@ -64,6 +65,7 @@ public class MapperUtil {
         responseDto.setUpdatedDate(entity.getUpdatedDate());
         responseDto.setUpdatedBy(entity.getUpdatedBy());
         responseDto.setFileBase64(entity.getFileBase64());
+        responseDto.setFileExtension(entity.getFileExtension());
         responseDto.setPriority(entity.getPriority());
         return responseDto;
     }
@@ -83,5 +85,4 @@ public class MapperUtil {
         }
         return responseList;
     }
-
 }

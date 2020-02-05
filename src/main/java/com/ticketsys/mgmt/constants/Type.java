@@ -7,7 +7,7 @@ package com.ticketsys.mgmt.constants;
 public enum Type {
 
     BUG("BUG"),
-    NEW ("NEW");
+    ENHANCEMENT ("ENHANCEMENT");
 
     private final String name;
 
