@@ -6,7 +6,8 @@ package com.ticketsys.mgmt.constants;
  */
 public enum ErrorCode {
     ERR_1001("1001","Please contact administrator"),
-    ERR_1002("1002", "Service unavailable for hour's");
+    ERR_1002("1002", "Service unavailable for an hour"),
+    ERR_BADREQ400("400", "Invalid Request, Once of request field have invalid data.");
 
     private final String errorCode;
     private final String message;
