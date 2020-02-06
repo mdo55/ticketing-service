@@ -22,10 +22,11 @@ public class TicketInfo implements Serializable {
     private int ticketId;
     @Column(name="user_id", length = 50)
     private String userId;
+    @Column(name = "ticket", length = 500)
     private String ticket;
     @Column(name = "type", length = 20)
     private String type;
-    @Column(name = "description", length = 1000)
+    @Column(name = "description", length = 1500)
     private String description;
     private boolean attached;
     @Column(name = "version", length = 10)
@@ -35,7 +36,7 @@ public class TicketInfo implements Serializable {
     private Status status;
     @Basic(optional = false)
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "created_date", updatable = false)
+    @Column(name = "created_date", updatable = false, nullable = false)
     private Date createdDate;
     @Column(name = "created_by", length = 50)
     private String createdBy;
@@ -53,6 +54,7 @@ public class TicketInfo implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column(name = "priority", length = 10)
     private Priority priority;
+    private boolean active;
 
     public TicketInfo() {
     }
@@ -175,5 +177,13 @@ public class TicketInfo implements Serializable {
 
     public void setPriority(Priority priority) {
         this.priority = priority;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }

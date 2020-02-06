@@ -26,23 +26,27 @@ public class MapperUtil {
      * @param requestDto
      * @return ticketInfo
      */
-    public TicketInfo mapRequestToTicketInfoDomain(TicketInfoRequest requestDto) {
-        TicketInfo ticketInfo = new TicketInfo();
-        ticketInfo.setUserId(requestDto.getUserId());
+    public TicketInfo mapRequestToTicketInfoDomain(TicketInfoRequest requestDto, TicketInfo ticketInfo) {
+        if(Objects.nonNull(ticketInfo)) {
+            ticketInfo.setUpdatedDate(new Date(System.currentTimeMillis()));
+        }else {
+            ticketInfo = new TicketInfo();
+            ticketInfo.setUserId(requestDto.getUserId());
+            ticketInfo.setCreatedDate(new Date(System.currentTimeMillis()));
+        }
         ticketInfo.setTicket(requestDto.getTicket());
         ticketInfo.setType(requestDto.getType());
         ticketInfo.setDescription(requestDto.getDescription());
         ticketInfo.setAttached(requestDto.isAttached());
         ticketInfo.setVersion(requestDto.getVersion());
         ticketInfo.setStatus(requestDto.getStatus());
-        ticketInfo.setCreatedDate(new Date(System.currentTimeMillis()));
-        ticketInfo.setCreatedBy("mdoss@altimetrik.com");
-        ticketInfo.setUpdatedDate(new Date(System.currentTimeMillis()));
-        ticketInfo.setUpdatedBy("UpdatedBy");
+        ticketInfo.setCreatedBy(requestDto.getCreatedBy());
+        ticketInfo.setUpdatedBy(requestDto.getUpdatedBy());
         ticketInfo.setFileBase64(requestDto.getFileBase64());
         ticketInfo.setFileExtension(requestDto.getFileExtension());
         Priority priority = requestDto.getPriority() == null ? Priority.NORMAL : requestDto.getPriority();
         ticketInfo.setPriority(priority);
+        ticketInfo.setActive(requestDto.isActive());
         return ticketInfo;
     }
     /**
@@ -51,6 +55,9 @@ public class MapperUtil {
      * @return ticketInfoResponse.
      */
     public TicketInfoResponse mapTicketInfoDomainToResponse(TicketInfo entity) {
+        if(Objects.isNull(entity)) {
+            return null;
+        }
         TicketInfoResponse responseDto = new TicketInfoResponse();
         responseDto.setTicketId(entity.getTicketId());
         responseDto.setUserId(entity.getUserId());
@@ -67,6 +74,7 @@ public class MapperUtil {
         responseDto.setFileBase64(entity.getFileBase64());
         responseDto.setFileExtension(entity.getFileExtension());
         responseDto.setPriority(entity.getPriority());
+        responseDto.setActive(entity.isActive());
         return responseDto;
     }
 

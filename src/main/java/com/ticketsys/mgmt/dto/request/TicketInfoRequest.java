@@ -26,4 +26,5 @@ public class TicketInfoRequest {
     private String fileBase64;
     private String fileExtension;
     private Priority priority;
+    private boolean active;
 }
