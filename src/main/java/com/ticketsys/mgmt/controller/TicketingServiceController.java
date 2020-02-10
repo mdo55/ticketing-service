@@ -38,6 +38,7 @@ public class TicketingServiceController {
      * @return ticketInfoResponse entity.
      */
     @PostMapping(value = "saveTicket", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<TicketInfoResponse> saveTicket(@RequestBody @Valid TicketInfoRequest requestDto) throws TicketServiceException {
         TicketInfoResponse responseDto = ticketService.save(requestDto);
         if(Objects.isNull(responseDto)) {
@@ -61,7 +62,7 @@ public class TicketingServiceController {
      * @return response entity as ticketInfoResponse.
      */
     @GetMapping("findBy/{ticketId}")
-    public ResponseEntity<TicketInfoResponse> findById(@PathParam("ticketId") @DefaultValue("0") Integer ticketId)
+    public ResponseEntity<TicketInfoResponse> findById(@PathVariable("ticketId") @DefaultValue("0") Integer ticketId)
             throws TicketServiceException {
         return ResponseEntity.ok(this.ticketService.findById(ticketId));
     }
