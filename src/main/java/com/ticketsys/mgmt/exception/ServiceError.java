@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.ticketsys.mgmt.constants.ErrorCode;
 import lombok.Getter;
 
+import java.text.MessageFormat;
 import java.time.LocalDateTime;
 
 /**
@@ -58,5 +59,17 @@ public class ServiceError {
         this.status = ErrorCode.ERR_1001.getErrorCode();
         this.message = "Unexpected error";
         this.debugMessage = throwable.getLocalizedMessage();
+    }
+
+    /**
+     * argument cons
+     * @param errorCode
+     * @param arg
+     */
+    public ServiceError(ErrorCode errorCode, Object ... arg) {
+        this();
+        MessageFormat messageFormat = new MessageFormat(errorCode.getMessage());
+        this.status = errorCode.getErrorCode();
+        this.message = messageFormat.format(arg);
     }
 }

@@ -24,11 +24,11 @@ import java.util.Date;
 public class TicketInfoRequest {
     private int ticketId;
     private String userId;
-    @Size(min = 10, max = 15)
+    @Size(min = 3)
     @NotNull(message = "Ticket is mandatory")
     private String ticket;
     private String type;
-    @Size(min = 10, max = 15)
+    @Size(min = 3)
     @NotNull(message = "Ticket is mandatory")
     private String description;
     private boolean attached;

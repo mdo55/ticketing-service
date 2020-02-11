@@ -12,9 +12,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.websocket.server.PathParam;
 import java.util.Objects;
@@ -23,7 +26,8 @@ import java.util.Objects;
  * @author mdoss
  */
 @RestController
-@RequestMapping("ticketsysmgmt/")
+@RequestMapping(value = "ticketsysmgmt/", produces = {MediaType.APPLICATION_JSON_VALUE})
+@Validated
 @Slf4j
 @CrossOrigin(origins="http://localhost:4200", allowedHeaders="*")
 public class TicketingServiceController {
@@ -62,8 +66,9 @@ public class TicketingServiceController {
      * @return response entity as ticketInfoResponse.
      */
     @GetMapping("findBy/{ticketId}")
-    public ResponseEntity<TicketInfoResponse> findById(@PathVariable("ticketId") @DefaultValue("0") Integer ticketId)
-            throws TicketServiceException {
+    public ResponseEntity<TicketInfoResponse> findById(@PathVariable("ticketId")
+           @Min(value = 1, message = "ticketId must be greater than or equal to 1")
+           @Max(value = Integer.MAX_VALUE) Integer ticketId ) throws TicketServiceException {
         return ResponseEntity.ok(this.ticketService.findById(ticketId));
     }
 

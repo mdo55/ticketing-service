@@ -61,15 +61,12 @@ public class TicketServiceImpl implements TicketService {
      */
     @Override
     public TicketInfoResponse findById(Integer ticketId) {
-        try {
-            Optional<TicketInfo> persistObj = ticketRepository.findById(ticketId);
-            if (Objects.nonNull(persistObj)) {
-                return MapperUtil.getInstance().mapTicketInfoDomainToResponse(persistObj.get());
-            }
-            return null;
-        }catch (Exception exception) {
-            log.error("Exception in findById() method: " + exception);
-            throw new TicketServiceException(exception);
+
+        Optional<TicketInfo> persistObj = ticketRepository.findById(ticketId);
+        if (persistObj.isPresent()) {
+            return MapperUtil.getInstance().mapTicketInfoDomainToResponse(persistObj.get());
+        }else {
+            throw new TicketServiceException(ErrorCode.ERR_1002, ticketId);
         }
     }
 
