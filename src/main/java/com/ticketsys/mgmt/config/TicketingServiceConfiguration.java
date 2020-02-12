@@ -9,7 +9,7 @@ import org.springframework.validation.beanvalidation.MethodValidationPostProcess
 /**
  * ticketing-service configuration class.
  *
- * @author mdoss .
+ * @author mdoss.
  */
 @Configuration
 public class TicketingServiceConfiguration {

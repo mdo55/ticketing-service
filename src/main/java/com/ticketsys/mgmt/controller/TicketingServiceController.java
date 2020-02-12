@@ -1,5 +1,6 @@
 package com.ticketsys.mgmt.controller;
 
+import com.ticketsys.mgmt.config.TicketInfoValidator;
 import com.ticketsys.mgmt.constants.ErrorCode;
 import com.ticketsys.mgmt.dto.request.TicketInfoRequest;
 import com.ticketsys.mgmt.dto.response.TicketInfoResponse;
@@ -13,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -43,7 +45,7 @@ public class TicketingServiceController {
      */
     @PostMapping(value = "saveTicket", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<TicketInfoResponse> saveTicket(@RequestBody @Valid TicketInfoRequest requestDto) throws TicketServiceException {
+    public ResponseEntity<TicketInfoResponse> saveTicket(@RequestBody @Valid TicketInfoRequest requestDto) throws TicketServiceException, Exception {
         TicketInfoResponse responseDto = ticketService.save(requestDto);
         if(Objects.isNull(responseDto)) {
             throw new TicketServiceException(ErrorCode.ERR_BADREQ400.getErrorCode(), ErrorCode.ERR_BADREQ400.getMessage());
@@ -72,10 +74,26 @@ public class TicketingServiceController {
         return ResponseEntity.ok(this.ticketService.findById(ticketId));
     }
 
+    /**
+     * updateTicket.
+     * @param requestDto
+     * @return
+     * @throws TicketServiceException
+     */
     @PutMapping(value = "updateTicket", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<TicketInfoResponse> updateTicket(@RequestBody @Valid TicketInfoRequest requestDto)
             throws TicketServiceException {
         TicketInfoResponse responseDto = ticketService.updateTicket(requestDto);
         return ResponseEntity.ok(responseDto);
     }
+
+    /**
+     * initBinder method, For valid request.
+     * @param binder
+     */
+    @InitBinder
+    protected void initBinder(WebDataBinder binder) {
+        binder.setValidator(new TicketInfoValidator());
+    }
+
 }
