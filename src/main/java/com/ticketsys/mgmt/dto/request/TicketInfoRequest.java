@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
@@ -23,12 +24,14 @@ import java.util.Date;
 public class TicketInfoRequest {
     private int ticketId;
     private String userId;
-    @Size(min = 3, max = 500, message = "ticket size minimum=3 and maximum=1500")
+    @Size(min = 3, max = 500, message = "ticket size minimum=3 and maximum=500")
+    @NotBlank
     @NotNull(message = "Ticket is mandatory")
     private String ticket;
     private String type;
     @Size(min = 3, max = 1500, message = "description size minimum=3 and maximum=1500")
-    @NotNull(message = "Ticket is mandatory")
+    @NotBlank
+    @NotNull(message = "Description is mandatory")
     private String description;
     private boolean attached;
     private String version;

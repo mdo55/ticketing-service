@@ -143,4 +143,24 @@ public class TicketServiceImpl implements TicketService {
             throw new TicketServiceException(exception);
         }
     }
+
+    /**
+     * get count of ticket's findBy userId.
+     * @param userId
+     * @return ticket's count
+     */
+    @Override
+    public long getTicketsCountFindByUserId(String userId) {
+//        Example.of(userId);
+        return ticketRepository.count();
+    }
+
+    /**
+     * get count of ticket's.
+     * @return ticket's count.
+     */
+    @Override
+    public long getTicketsCount() {
+        return ticketRepository.count();
+    }
 }

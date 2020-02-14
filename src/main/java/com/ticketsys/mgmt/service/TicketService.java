@@ -15,4 +15,7 @@ public interface TicketService {
     Page<TicketInfoResponse> loadPage(int page, int size);
     TicketInfoResponse updateTicket(TicketInfoRequest requestDto);
     void cancelTicket(Integer ticketId, Status status);
+    long getTicketsCountFindByUserId(String userId);
+    long getTicketsCount();
+
 }

@@ -17,11 +17,11 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.validation.Valid;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import javax.websocket.server.PathParam;
+import javax.validation.constraints.*;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -68,7 +68,7 @@ public class TicketingServiceController {
      * @return response entity as ticketInfoResponse.
      */
     @GetMapping("findBy/{ticketId}")
-    public ResponseEntity<TicketInfoResponse> findById(@PathVariable("ticketId")
+    public ResponseEntity<TicketInfoResponse> findByTicketId(@PathVariable("ticketId")
            @Min(value = 1, message = "ticketId must be greater than or equal to 1")
            @Max(value = Integer.MAX_VALUE) Integer ticketId ) throws TicketServiceException {
         return ResponseEntity.ok(this.ticketService.findById(ticketId));
@@ -80,13 +80,41 @@ public class TicketingServiceController {
      * @return
      * @throws TicketServiceException
      */
-    @PutMapping(value = "updateTicket", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "updateTicket", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<TicketInfoResponse> updateTicket(@RequestBody @Valid TicketInfoRequest requestDto)
             throws TicketServiceException {
         TicketInfoResponse responseDto = ticketService.updateTicket(requestDto);
         return ResponseEntity.ok(responseDto);
     }
 
+    /**
+     * get ticket's count findBy userId.
+     * @param userId
+     * @return {<string>count</string>: <long>ticket's count</long> }
+     * @throws TicketServiceException
+     */
+    @GetMapping("getTicketsCountFindBy/{userId}")
+    public ResponseEntity<Map<String, Long>> getTicketsCountFindByUserId(@PathVariable("userId")
+           @Size(min=5, max = 50, message = "UserId not blank size must be between 10 to 50") String userId)
+        throws TicketServiceException {
+        long ticketsCount = ticketService.getTicketsCountFindByUserId(userId);
+        Map<String, Long> count = new HashMap<>();
+        count.put("count", ticketsCount);
+        return ResponseEntity.ok(count);
+    }
+
+    /**
+     *  get ticket's count.
+     * @return {<string>count</string>: <long>ticket's count</long> }
+     * @throws TicketServiceException
+     */
+    @GetMapping("getTicketsCount}")
+    public ResponseEntity<Map<String, Long>> getTicketsCount() throws TicketServiceException {
+        long ticketsCount = ticketService.getTicketsCount();
+        Map<String, Long> count = new HashMap<>();
+        count.put("count", ticketsCount);
+        return ResponseEntity.ok(count);
+    }
     /**
      * initBinder method, For valid request.
      * @param binder

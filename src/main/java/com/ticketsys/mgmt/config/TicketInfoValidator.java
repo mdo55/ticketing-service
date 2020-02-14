@@ -4,8 +4,10 @@ package com.ticketsys.mgmt.config;
 import com.ticketsys.mgmt.dto.request.TicketInfoRequest;
 import com.ticketsys.mgmt.exception.TicketServiceException;
 import org.springframework.validation.Errors;
-import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * ticketInfo validator.
@@ -19,13 +21,12 @@ public class TicketInfoValidator implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
-//        ValidationUtils.rejectIfEmpty(errors, "ticket", "ticket.empty");
-//        ValidationUtils.rejectIfEmpty(errors, "description", "description.empty");
         TicketInfoRequest request = (TicketInfoRequest) target;
         if(errors.hasFieldErrors())
         {
-            System.out.println(errors.getFieldError());
-            throw new TicketServiceException(errors.getFieldError().getField(), errors.getFieldError().getRejectedValue().toString());
+            List<String> listOfErrors= errors.getAllErrors().stream().map(error -> error.getDefaultMessage()).collect(Collectors.toList());
+            System.out.println(errors.getAllErrors().stream().map(error -> error.getDefaultMessage()).collect(Collectors.toList()));
+            throw new TicketServiceException(errors.getFieldError().getField(), listOfErrors.toString());
         }
     }
 }
