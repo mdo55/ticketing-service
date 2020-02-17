@@ -1,7 +1,6 @@
 package com.ticketsys.mgmt.util;
 
 import com.ticketsys.mgmt.constants.Priority;
-import com.ticketsys.mgmt.constants.Status;
 import com.ticketsys.mgmt.domain.TicketInfo;
 import com.ticketsys.mgmt.dto.request.TicketInfoRequest;
 import com.ticketsys.mgmt.dto.response.TicketInfoResponse;
