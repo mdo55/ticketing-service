@@ -26,13 +26,15 @@ public class TicketInfoResponse {
     private String description;
     private boolean attached;
     private String version;
-    private Status status;
+    private String status;
     private Date createdDate;
     private String createdBy;
     private Date updatedDate;
     private String updatedBy;
     private String fileBase64;
     private String fileExtension;
-    private Priority priority;
+    private String priority;
     private boolean active;
+    private String severity;
+    private boolean createIssueInJira;
 }

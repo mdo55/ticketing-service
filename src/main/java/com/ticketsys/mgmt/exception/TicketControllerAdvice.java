@@ -1,7 +1,10 @@
 package com.ticketsys.mgmt.exception;
 
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.ticketsys.mgmt.constants.ErrorCode;
+import com.ticketsys.mgmt.util.ServiceUtil;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -32,27 +35,18 @@ public class TicketControllerAdvice extends ResponseEntityExceptionHandler {
     }
     @ExceptionHandler({ConstraintViolationException.class})
     @ResponseStatus
-    public ResponseEntity<ServiceError> handleMethodArgumentNotValidException(ConstraintViolationException cvException, WebRequest request) {
-//        System.out.println("handleMethodArgumentNotValidException------"+ cvException.getMessage()+"\n" + request.getDescription(false));
-        TicketServiceException serviceException = new TicketServiceException(ErrorCode.ERR_1003, segregateMessage(cvException.getMessage()));
+    public ResponseEntity<ServiceError> handleConstraintViolationException(ConstraintViolationException cvException,  WebRequest request) {
+//        System.out.println("ConstraintViolationException------"+ cvException.getMessage()+"\n" + request.getDescription(false));
+        TicketServiceException serviceException = new TicketServiceException(ErrorCode.ERR_1003, ServiceUtil.segregateMessage(cvException.getMessage()));
         return ResponseEntity.ok(serviceException.getServiceError());
     }
+//    @ExceptionHandler({InvalidFormatException.class})
+//    @ResponseStatus
+//    public ResponseEntity<ServiceError> httpMethodReadableException(InvalidFormatException readableException, WebRequest request) {
+//        System.out.println("handleMethodArgumentNotValidException------"+ readableException.getMessage()+"\n" + request.getDescription(false));
+//        TicketServiceException serviceException = new TicketServiceException(ErrorCode.ERR_1003, ServiceUtil.segregateMessage(readableException.getMessage()));
+//        return ResponseEntity.ok(serviceException.getServiceError());
+//    }
 
-    /**
-     * segregate constraintViolation exception.
-     * @param kvPairMessage
-     * @return string[]
-     */
-    public Object segregateMessage(String kvPairMessage) {
-        if (!StringUtils.isEmpty(kvPairMessage)) {
-            return Arrays.asList(
-                    kvPairMessage.split("\\,")).stream()
-                    .map(kvMsg -> kvMsg.split("\\:").length > 1
-                            ? kvMsg.split("\\:")[1]
-                            : kvMsg.split("\\:")[0])
-                    .collect(Collectors.joining(","));
-        }else {
-            return new Object();
-        }
-    }
+
 }

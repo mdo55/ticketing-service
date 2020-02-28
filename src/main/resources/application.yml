@@ -1,5 +1,7 @@
 server:
   port: 8088
+#  servlet:
+#    context-path: /ticketsysmgmt
 
 spring:
   datasource:
@@ -14,3 +16,11 @@ spring:
     properties:
       hibernate:
         format_sql: true
+  jackson:
+    deserialization:
+      FAIL_ON_IGNORED_PROPERTIES: false
+#      F: true
+#      EAGER_DESERIALIZER_FETCH: true
+logging:
+  level:
+    root: INFO

@@ -6,16 +6,19 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.2.4.RELEASE</version>
+<!--		<version>2.0.5.RELEASE</version>-->
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>ticketing-service</groupId>
 	<artifactId>ticketing-service</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>ticketing-service</name>
 	<description>ticketing-service project for Spring Boot</description>
 
 	<properties>
 		<java.version>1.8</java.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<swagger-request-validator.version>2.1.0</swagger-request-validator.version>
 		<spring-cloud-dependencies.version>Finchley.BUILD-SNAPSHOT</spring-cloud-dependencies.version>
 		<spring-cloud-contract.version>2.0.2.RELEASE</spring-cloud-contract.version>
@@ -34,66 +37,82 @@
 			<artifactId>swagger-annotations</artifactId>
 			<version>${swagger-annotations-version}</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>${jackson-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>${jackson-version}</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>${jackson-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.jaxrs</groupId>
+			<artifactId>jackson-jaxrs-json-provider</artifactId>
+			<version>${jackson-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-joda</artifactId>
+			<version>${jackson-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>${jodatime-version}</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
 <!--		<dependency>-->
-<!--			<groupId>com.fasterxml.jackson.jaxrs</groupId>-->
-<!--			<artifactId>jackson-jaxrs-base</artifactId>-->
-<!--			<version>${jackson-version}</version>-->
+<!--			<groupId>com.google.code.gson</groupId>-->
+<!--			<artifactId>gson</artifactId>-->
+<!--			<version>2.3.1</version>-->
 <!--		</dependency>-->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>${springfox-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>${springfox-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-bean-validators</artifactId>
+			<version>${springfox-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.fge</groupId>
+			<artifactId>json-schema-validator</artifactId>
+			<version>2.0.0</version>
+		</dependency>
 <!--		<dependency>-->
-<!--			<groupId>com.fasterxml.jackson.core</groupId>-->
-<!--			<artifactId>jackson-core</artifactId>-->
-<!--			<version>${jackson-version}</version>-->
-<!--		</dependency>-->
-<!--		<dependency>-->
-<!--			<groupId>com.fasterxml.jackson.core</groupId>-->
-<!--			<artifactId>jackson-annotations</artifactId>-->
-<!--			<version>${jackson-version}</version>-->
-<!--		</dependency>-->
-
-
-<!--		<dependency>-->
-<!--			<groupId>com.fasterxml.jackson.core</groupId>-->
-<!--			<artifactId>jackson-databind</artifactId>-->
-<!--			<version>${jackson-version}</version>-->
-<!--		</dependency>-->
-<!--		<dependency>-->
-<!--			<groupId>com.fasterxml.jackson.jaxrs</groupId>-->
-<!--			<artifactId>jackson-jaxrs-json-provider</artifactId>-->
-<!--			<version>${jackson-version}</version>-->
-<!--		</dependency>-->
-<!--		<dependency>-->
-<!--			<groupId>com.fasterxml.jackson.datatype</groupId>-->
-<!--			<artifactId>jackson-datatype-joda</artifactId>-->
-<!--			<version>${jackson-version}</version>-->
-<!--		</dependency>-->
-<!--		<dependency>-->
-<!--			<groupId>joda-time</groupId>-->
-<!--			<artifactId>joda-time</artifactId>-->
-<!--			<version>${jodatime-version}</version>-->
-<!--		</dependency>-->
-<!--		<dependency>-->
-<!--			<groupId>io.springfox</groupId>-->
-<!--			<artifactId>springfox-swagger2</artifactId>-->
-<!--			<version>${springfox-version}</version>-->
-<!--		</dependency>-->
-<!--		<dependency>-->
-<!--			<groupId>io.springfox</groupId>-->
-<!--			<artifactId>springfox-swagger-ui</artifactId>-->
-<!--			<version>${springfox-version}</version>-->
+<!--			<groupId>javax.xml</groupId>-->
+<!--			<artifactId>jaxb-api</artifactId>-->
+<!--			<version>2.1</version>-->
 <!--		</dependency>-->
 <!--	new dependency added end	-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-rest</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-hateoas</artifactId>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>org.springframework.boot</groupId>-->
+<!--			<artifactId>spring-boot-starter-data-rest</artifactId>-->
+<!--		</dependency>-->
+<!--		<dependency>-->
+<!--			<groupId>org.springframework.boot</groupId>-->
+<!--			<artifactId>spring-boot-starter-hateoas</artifactId>-->
+<!--		</dependency>-->
 <!--		<dependency>-->
 <!--			<groupId>org.springframework.boot</groupId>-->
 <!--			<artifactId>spring-boot-starter-security</artifactId>-->
@@ -110,6 +129,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>org.springframework.plugin</groupId>-->
+<!--			<artifactId>spring-plugin-core</artifactId>-->
+<!--			<version>1.2.0.RELEASE</version>-->
+<!--		</dependency>-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
@@ -137,6 +161,55 @@
 			<version>2.6</version>
 		</dependency>
 <!--		<dependency>-->
+<!--			<groupId>com.google.guava</groupId>-->
+<!--			<artifactId>guava</artifactId>-->
+<!--			<version>24.1-jre</version>-->
+<!--		</dependency>-->
+		<!--Jira dependency-->
+		<dependency>
+			<groupId>com.atlassian.jira</groupId>
+			<artifactId>jira-rest-java-client-core</artifactId>
+			<version>4.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.atlassian.fugue</groupId>
+			<artifactId>fugue</artifactId>
+			<version>2.6.2</version>
+		</dependency>
+		<!--unirest for jira rest call-->
+		<dependency>
+			<groupId>com.mashape.unirest</groupId>
+			<artifactId>unirest-java</artifactId>
+			<version>1.4.9</version>
+		</dependency>
+
+<!--		<dependency>-->
+<!--			<groupId>de.codecentric</groupId>-->
+<!--			<artifactId>spring-boot-admin-starter-server</artifactId>-->
+<!--			<version>2.1.0-SNAPSHOT</version>-->
+<!--		</dependency>-->
+<!--		<dependency>-->
+<!--			<groupId>io.micrometer</groupId>-->
+<!--			<artifactId>micrometer-registry-prometheus</artifactId>-->
+<!--		</dependency>-->
+<!--		<dependency>-->
+<!--			<groupId>com.codahale.metrics</groupId>-->
+<!--			<artifactId>metrics-annotation</artifactId>-->
+<!--			<version>3.0.2</version>-->
+<!--		</dependency>-->
+		<!--		<dependency>-->
+		<!--			<groupId>com.atlassian.jira</groupId>-->
+		<!--			<artifactId>jira-rest-java-client</artifactId>-->
+		<!--			<version>1.2-m01</version>-->
+		<!--		</dependency>-->
+		<!--		<dependency>-->
+		<!--			<groupId>com.atlassian.jira</groupId>-->
+		<!--			<artifactId>jira-rest-java-client-api</artifactId>-->
+		<!--			<version>4.0.0</version>-->
+		<!--		</dependency>-->
+
+		<!--End of jira dependency-->
+<!--		<dependency>-->
 <!--			<groupId>com.fasterxml.jackson.datatype</groupId>-->
 <!--			<artifactId>jackson-datatype-jsr310</artifactId>-->
 <!--		</dependency>-->
@@ -162,52 +235,22 @@
 <!--			<version>2.2.4.RELEASE</version>-->
 			<scope>test</scope>
 		</dependency>
-<!--		<dependency>-->
-<!--			<groupId>org.springframework.cloud</groupId>-->
-<!--			<artifactId>spring-cloud-starter-contract-stub-runner</artifactId>-->
-<!--			<scope>test</scope>-->
-<!--		</dependency>-->
-<!--		<dependency>-->
-<!--			<groupId>org.springframework.cloud</groupId>-->
-<!--			<artifactId>spring-cloud-starter-contract-verifier</artifactId>-->
-<!--			<scope>test</scope>-->
-<!--		</dependency>-->
-
-<!--		<dependency>-->
-<!--			<groupId>guru.springframework</groupId>-->
-<!--			<artifactId>spring-cloud-contract-oa3</artifactId>-->
-<!--			<version>${scc-oa3-version}</version>-->
-<!--			<scope>test</scope>-->
-<!--		</dependency>-->
-<!--		<dependency>-->
-<!--			<groupId>com.atlassian.oai</groupId>-->
-<!--			<artifactId>swagger-request-validator-core</artifactId>-->
-<!--			<version>${swagger-request-validator.version}</version>-->
-<!--			&lt;!&ndash;<scope>test</scope>&ndash;&gt;-->
-<!--		</dependency>-->
-<!--		<dependency>-->
-<!--			<groupId>com.atlassian.oai</groupId>-->
-<!--			<artifactId>swagger-request-validator-mockmvc</artifactId>-->
-<!--			<version>${swagger-request-validator.version}</version>-->
-<!--			<scope>test</scope>-->
-<!--		</dependency>-->
-<!--		<dependency>-->
-<!--			<groupId>com.atlassian.oai</groupId>-->
-<!--			<artifactId>swagger-request-validator-springmvc</artifactId>-->
-<!--			<version>${swagger-request-validator.version}</version>-->
-<!--		</dependency>-->
-<!--		<dependency>-->
-<!--			<groupId>com.atlassian.oai</groupId>-->
-<!--			<artifactId>swagger-request-validator-restassured</artifactId>-->
-<!--			<version>${swagger-request-validator.version}</version>-->
-<!--		</dependency>-->
-<!--		<dependency>-->
-<!--			<groupId>org.openapitools.swagger.parser</groupId>-->
-<!--			<artifactId>swagger-parser</artifactId>-->
-<!--			<version>2.0.3-OpenAPITools.org-1</version>-->
-<!--		</dependency>-->
 	</dependencies>
-
+	<repositories>
+		<repository>
+			<id>atlassian-public</id>
+			<url>https://packages.atlassian.com/maven/repository/public</url>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>daily</updatePolicy>
+				<checksumPolicy>warn</checksumPolicy>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+				<checksumPolicy>warn</checksumPolicy>
+			</releases>
+		</repository>
+	</repositories>
 	<build>
 		<plugins>
 			<plugin>

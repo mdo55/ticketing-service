@@ -25,7 +25,7 @@ public class TicketInfoValidator implements Validator {
         if(errors.hasFieldErrors())
         {
             List<String> listOfErrors= errors.getAllErrors().stream().map(error -> error.getDefaultMessage()).collect(Collectors.toList());
-//            System.out.println(errors.getAllErrors().stream().map(error -> error.getDefaultMessage()).collect(Collectors.toList()));
+//            System.out.println("%%%%%^^^^"+errors.getAllErrors().stream().map(error -> error.getDefaultMessage()).collect(Collectors.toList()));
             throw new TicketServiceException(errors.getFieldError().getField(), listOfErrors.toString());
         }
     }

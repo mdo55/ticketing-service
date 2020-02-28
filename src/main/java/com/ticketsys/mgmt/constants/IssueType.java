@@ -4,20 +4,18 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
- * Jira priority defined here.
- * @author mdoss.
+ * Jira type as enum constants.
+ * @author mdoss
  */
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
-public enum Priority {
-//    Highest, High, Medium, Low
-    Low("Low"),
-    Medium("Medium"),
-    High("High"),
-    Highest("Highest");
+public enum IssueType {
+// Bug, New Feature
+    Bug("Bug"),
+    NewFeature ("New Feature");
 
     private final String name;
 
-    private Priority(String name) {
+    private IssueType(String name) {
         this.name = name;
     }
     @JsonValue

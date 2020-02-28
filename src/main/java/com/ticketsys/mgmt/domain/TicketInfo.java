@@ -1,6 +1,8 @@
 package com.ticketsys.mgmt.domain;
 
+import com.ticketsys.mgmt.constants.IssueType;
 import com.ticketsys.mgmt.constants.Priority;
+import com.ticketsys.mgmt.constants.Severity;
 import com.ticketsys.mgmt.constants.Status;
 import org.hibernate.annotations.Type;
 
@@ -24,8 +26,9 @@ public class TicketInfo implements Serializable {
     private String userId;
     @Column(name = "ticket", length = 500)
     private String ticket;
-    @Column(name = "type", length = 20)
-    private String type;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "issue_type", length = 20)
+    private IssueType issueType;
     @Column(name = "description", length = 1500)
     private String description;
     private boolean attached;
@@ -55,6 +58,10 @@ public class TicketInfo implements Serializable {
     @Column(name = "priority", length = 10)
     private Priority priority;
     private boolean active;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "severity", length = 10)
+    private Severity severity;
+    private boolean createIssueInJira;
 
     public TicketInfo() {
     }
@@ -83,12 +90,12 @@ public class TicketInfo implements Serializable {
         this.ticket = ticket;
     }
 
-    public String getType() {
-        return type;
+    public IssueType getIssueType() {
+        return issueType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setIssueType(IssueType issueType) {
+        this.issueType = issueType;
     }
 
     public String getDescription() {
@@ -185,5 +192,21 @@ public class TicketInfo implements Serializable {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public Severity getSeverity() {
+        return severity;
+    }
+
+    public void setSeverity(Severity severity) {
+        this.severity = severity;
+    }
+
+    public boolean isCreateIssueInJira() {
+        return createIssueInJira;
+    }
+
+    public void setCreateIssueInJira(boolean createIssueInJira) {
+        this.createIssueInJira = createIssueInJira;
     }
 }
