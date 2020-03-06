@@ -1,22 +1,18 @@
 package com.ticketsys.mgmt.controller;
 
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.JsonNode;
-import com.mashape.unirest.http.Unirest;
-import com.mashape.unirest.http.exceptions.UnirestException;
-import com.mashape.unirest.request.body.Body;
 import com.ticketsys.mgmt.config.TicketInfoValidator;
 import com.ticketsys.mgmt.constants.ErrorCode;
+import com.ticketsys.mgmt.domain.AppIssue;
 import com.ticketsys.mgmt.dto.request.TicketInfoRequest;
 import com.ticketsys.mgmt.dto.response.TicketInfoResponse;
 import com.ticketsys.mgmt.exception.ServiceError;
 import com.ticketsys.mgmt.exception.TicketServiceException;
 import com.ticketsys.mgmt.service.JiraService;
 import com.ticketsys.mgmt.service.TicketService;
+import com.ticketsys.mgmt.util.MapperUtil;
 import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -52,10 +48,11 @@ public class TicketingServiceController {
 
     /**
      * Persist transient ticketInfo domain object.
+     *
      * @param requestDto
      * @return ticketInfoResponse entity.
      */
-    @ApiOperation(value = "", nickname = "Create New Ticket", response = TicketInfoResponse.class)
+    @ApiOperation(value = "Create new ticket", nickname = "Jira ticket", response = TicketInfoResponse.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Ticket successfully created"),
             @ApiResponse(code = 401, message = "You are not authorized to view the resource", response = ServiceError.class),
@@ -65,23 +62,15 @@ public class TicketingServiceController {
     @PostMapping(value = "saveTicket", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<TicketInfoResponse> saveTicket(
-            @ApiParam(value = "Create TicketInfo Object", required = true)
+            @ApiParam(value = "TicketInfo request data transfer object", required = true)
             @RequestBody @Valid TicketInfoRequest requestDto) throws TicketServiceException, Exception {
-//        jiraService.getAllField();
-//        try {
-////            HttpResponse<JsonNode> response =
-//                    String response = Unirest.get("https://mdoss.atlassian.net")//Unirest.get("/rest/api/3/atlassian-addons-project-access")//Unirest.get("/rest/api/3/applicationrole")
-//        //                .basicAuth("mdoss@altimetrik.com", "<api_token>")
-//                    .basicAuth("mdoss@altimetrik.com", "Y7Qf6JgQhqfoe6XYCmY3D256")//"3qlF3XZUQfD2kLANu7nA")
-//                    .header("Accept", "application/json").toString();
-//            System.out.println(response);
-//        }catch (Exception ex) {
-//            ex.printStackTrace();
-//        }
         TicketInfoResponse responseDto = ticketService.save(requestDto);
         if(Objects.isNull(responseDto)) {
             throw new TicketServiceException(ErrorCode.ERR_BADREQ400.getErrorCode(), ErrorCode.ERR_BADREQ400.getMessage());
         }
+        //create ticket in jira
+//        AppIssue issue = MapperUtil.getInstance().mapAppIssue(responseDto);
+//        jiraService.createIssueInJira(issue);
         return new ResponseEntity(responseDto, HttpStatus.OK);
     }
 
@@ -119,7 +108,7 @@ public class TicketingServiceController {
     @ApiOperation(value = "Update ticket by ticketId", nickname = "updateTicket", response = TicketInfoResponse.class)
     @PutMapping(value = "updateTicket", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<TicketInfoResponse> updateTicket(
-            @ApiParam(value = "Update TicketInfo Object", required = true)
+            @ApiParam(value = "TicketInfo request data transfer object", required = true)
             @RequestBody @Valid TicketInfoRequest requestDto) throws TicketServiceException {
         TicketInfoResponse responseDto = ticketService.updateTicket(requestDto);
         return ResponseEntity.ok(responseDto);

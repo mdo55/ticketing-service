@@ -8,7 +8,8 @@ spring:
     url: jdbc:mysql://localhost:3306/TicketingSystem
     username: root
     password: root
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
+#    com.mysql.jdbc.Driver
   jpa:
     hibernate:
       ddl-auto: update
@@ -24,3 +25,11 @@ spring:
 logging:
   level:
     root: INFO
+jira:
+  user: mdoss@altimetrik.com
+  password: mdoss@altimetrik.com
+  api-token: Y7Qf6JgQhqfoe6XYCmY3D256
+  domain-url: https://mdoss.atlassian.net
+  issue-url: /rest/api/3/issue/
+  priority-url: /rest/api/2/priority/
+  issue-type-url: /rest/api/2/issuetype/

@@ -39,11 +39,11 @@ public interface JiraService {
     /**
      * Update a issue on JIRA.
      *
-     * @param issue the issue.
-     * @param newFieldList the list of field to be updated.
+     * @param issueKey the issue.
+     * @param ticketId the list of field to be updated.
      * @return the issue with the id
      */
-    Issue updateIssueInJira(Issue issue, Iterable<FieldInput> newFieldList);
+    Issue updateIssueInJira(String issueKey, int ticketId);
 
     /**
      * Returns a issue from JIRA.
@@ -72,8 +72,14 @@ public interface JiraService {
     /**
      * Returns all projects on jira.
      *
-     * @return the list of project.
+     * @return the project.
      */
     Project getProjectByName(String projectName);
 
+    /**
+     * Returns all projects on jira.
+     *
+     * @return the list of project.
+     */
+    List<BasicProject> getAllProject();
 }

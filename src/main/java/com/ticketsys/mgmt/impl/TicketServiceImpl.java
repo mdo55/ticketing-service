@@ -1,5 +1,6 @@
 package com.ticketsys.mgmt.impl;
 
+import com.atlassian.jira.rest.client.api.JiraRestClient;
 import com.ticketsys.mgmt.constants.ErrorCode;
 import com.ticketsys.mgmt.constants.Status;
 import com.ticketsys.mgmt.domain.TicketInfo;
@@ -36,6 +37,8 @@ public class TicketServiceImpl implements TicketService {
     @NotNull
     private TicketRepository ticketRepository;
 
+    @Autowired
+    private JiraRestClient jiraRestClient;
     /**
      * ticketInfo request map to domain (TicketInfo) object.
      * save transient object.

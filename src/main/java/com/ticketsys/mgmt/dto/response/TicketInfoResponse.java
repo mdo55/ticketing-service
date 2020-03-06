@@ -37,4 +37,5 @@ public class TicketInfoResponse {
     private boolean active;
     private String severity;
     private boolean createIssueInJira;
+    private String jiraIssueInfo;
 }

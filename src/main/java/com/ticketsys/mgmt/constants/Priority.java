@@ -16,12 +16,20 @@ public enum Priority {
     Highest("Highest");
 
     private final String name;
-
+    private final int idArr[] = {4, 3, 2, 1};
     private Priority(String name) {
         this.name = name;
     }
     @JsonValue
     public String getName() {
         return this.name;
+    }
+
+    /**
+     * jira priority id.
+     * @return int.
+     */
+    public int getId() {
+        return this.idArr[this.ordinal()];
     }
 }

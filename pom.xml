@@ -169,12 +169,13 @@
 		<dependency>
 			<groupId>com.atlassian.jira</groupId>
 			<artifactId>jira-rest-java-client-core</artifactId>
-			<version>4.0.0</version>
+			<version>5.2.0</version>
 		</dependency>
 		<dependency>
-			<groupId>com.atlassian.fugue</groupId>
+			<groupId>io.atlassian.fugue</groupId>
 			<artifactId>fugue</artifactId>
-			<version>2.6.2</version>
+			<version>4.7.2</version>
+<!--			<scope>provided</scope>-->
 		</dependency>
 		<!--unirest for jira rest call-->
 		<dependency>
@@ -182,7 +183,11 @@
 			<artifactId>unirest-java</artifactId>
 			<version>1.4.9</version>
 		</dependency>
-
+<!--		<dependency>-->
+<!--			<groupId>com.sun</groupId>-->
+<!--			<artifactId>tools</artifactId>-->
+<!--			<version>1.7.0.13</version>-->
+<!--		</dependency>-->
 <!--		<dependency>-->
 <!--			<groupId>de.codecentric</groupId>-->
 <!--			<artifactId>spring-boot-admin-starter-server</artifactId>-->

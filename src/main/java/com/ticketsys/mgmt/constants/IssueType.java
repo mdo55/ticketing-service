@@ -11,15 +11,23 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public enum IssueType {
 // Bug, New Feature
     Bug("Bug"),
-    NewFeature ("New Feature");
+    NewFeature ("NewFeature");
 
     private final String name;
-
+    private int idArr[] = {10005, 10004};
     private IssueType(String name) {
         this.name = name;
     }
     @JsonValue
     public String getName() {
         return this.name;
+    }
+
+    /**
+     * jira issueType id
+     * @return int.
+     */
+    public int getId() {
+        return this.idArr[this.ordinal()];
     }
 }

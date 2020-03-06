@@ -32,9 +32,8 @@ public class TicketingServiceConfiguration {
     public JiraRestClient jiraRestClient() {
         JiraRestClientFactory factory = new AsynchronousJiraRestClientFactory();
         try{
-//            URI uri = new URI("https://mdoss.atlassian.net");
-            final URI jiraServerUri = new URI("https://mdoss.atlassian.net/projects/TIC/issues/TIC-1");
-            return factory.createWithBasicHttpAuthentication(jiraServerUri, "mdoss@altimetrik.com", "mdoss@altimetrik.com");
+            URI uri = new URI("https://mdoss.atlassian.net");
+            return factory.createWithBasicHttpAuthentication(uri, "mdoss@altimetrik.com", "Y7Qf6JgQhqfoe6XYCmY3D256");
         }catch (Exception ex) {
             log.error("Exceptin in jiraRestClient initialization exception: "+ex);
         }

@@ -4,9 +4,11 @@ import com.ticketsys.mgmt.constants.Priority;
 import com.ticketsys.mgmt.constants.Severity;
 import com.ticketsys.mgmt.constants.Status;
 import com.ticketsys.mgmt.constants.IssueType;
+import com.ticketsys.mgmt.domain.AppIssue;
 import com.ticketsys.mgmt.domain.TicketInfo;
 import com.ticketsys.mgmt.dto.request.TicketInfoRequest;
 import com.ticketsys.mgmt.dto.response.TicketInfoResponse;
+import org.json.JSONObject;
 
 import java.util.*;
 
@@ -50,8 +52,9 @@ public class MapperUtil {
         ticketInfo.setPriority(priority);
         ticketInfo.setActive(requestDto.isActive());
         Severity severity = Objects.nonNull(requestDto.getSeverity()) ? Severity.valueOf(requestDto.getSeverity()): Severity.Low;
-        ticketInfo.setSeverity(Severity.valueOf(requestDto.getSeverity()));
+        ticketInfo.setSeverity(severity);
         ticketInfo.setCreateIssueInJira(requestDto.isCreateIssueInJira());
+        ticketInfo.setJiraIssueInfo(requestDto.getJiraIssueInfo());
         return ticketInfo;
     }
     /**
@@ -99,5 +102,62 @@ public class MapperUtil {
             responseList.add(mapTicketInfoDomainToResponse(entity));
         }
         return responseList;
+    }
+
+    /**
+     * Create AppIssue object from ticketInfoResponse.
+     * @param response as TicketInfoResponse
+     * @return appIssue object.
+     */
+    public AppIssue mapAppIssue(TicketInfoResponse response) {
+        AppIssue issue = new AppIssue();
+        issue.setSummary(response.getTicket());
+        issue.setDescription(response.getDescription());
+        issue.setPriorityId(Priority.valueOf(response.getPriority()).getId());
+        issue.setIssueTypeId(IssueType.valueOf(response.getType()).getId());
+        issue.setTicketId(response.getTicketId());
+        issue.setFileAttached(response.isAttached());
+        return issue;
+    }
+
+    /**
+     * map ticketInfoResponse to ticketInfoRequest.
+     * @param response
+     * @return ticketInfoRequest.
+     */
+    public TicketInfoRequest mapTicketResponseToRequest(TicketInfoResponse response) {
+        TicketInfoRequest request = new TicketInfoRequest();
+        request.setTicketId(response.getTicketId());
+        request.setUserId(response.getUserId());
+        request.setTicket(response.getTicket());
+        request.setType(response.getType());
+        request.setDescription(response.getDescription());
+        request.setAttached(response.isAttached());
+        request.setVersion(response.getVersion());
+        request.setStatus(response.getStatus());
+        request.setCreatedDate(response.getCreatedDate());
+        request.setCreatedBy(response.getCreatedBy());
+        request.setUpdatedDate(response.getUpdatedDate());
+        request.setUpdatedBy(response.getUpdatedBy());
+        request.setFileBase64(response.getFileBase64());
+        request.setFileExtension(response.getFileExtension());
+        request.setPriority(response.getPriority());
+        request.setActive(response.isActive());
+        request.setSeverity(response.getSeverity());
+        request.setCreateIssueInJira(response.isCreateIssueInJira());
+        return request;
+    }
+
+    /**
+     * make json
+     * @param projectKey
+     * @param issueKey
+     * @return string object.
+     */
+    public String issueInfoInJsonFormat(String projectKey, String issueKey) {
+        JSONObject parent = new JSONObject();
+        parent.put("projectKey", projectKey);
+        parent.put("issueKey", issueKey);
+        return parent.toString();
     }
 }

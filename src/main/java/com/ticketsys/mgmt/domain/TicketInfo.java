@@ -61,7 +61,10 @@ public class TicketInfo implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column(name = "severity", length = 10)
     private Severity severity;
+    @Column(name = "create_issue_in_jira")
     private boolean createIssueInJira;
+    @Column(name = "jira_issue_info")
+    private String jiraIssueInfo;
 
     public TicketInfo() {
     }
@@ -208,5 +211,13 @@ public class TicketInfo implements Serializable {
 
     public void setCreateIssueInJira(boolean createIssueInJira) {
         this.createIssueInJira = createIssueInJira;
+    }
+
+    public String getJiraIssueInfo() {
+        return jiraIssueInfo;
+    }
+
+    public void setJiraIssueInfo(String jiraIssueInfo) {
+        this.jiraIssueInfo = jiraIssueInfo;
     }
 }
