@@ -25,7 +25,7 @@
 		<scc-oa3-version>2.0.2.2</scc-oa3-version>
 <!--	new dependency added	-->
 		<swagger-annotations-version>1.5.22</swagger-annotations-version>
-		<jackson-version>2.9.4</jackson-version>
+		<jackson-version>2.12.1</jackson-version>
 		<jodatime-version>2.7</jodatime-version>
 		<springfox-version>2.9.2</springfox-version>
 
